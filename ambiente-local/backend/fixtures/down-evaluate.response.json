@@ -1,0 +1,150 @@
+{
+  "success": true,
+  "data": {
+    "decision_id": "dec_0005",
+    "decision_kind": "trial",
+    "outcome": "change",
+    "keep_reason": null,
+    "rules_evaluated": [
+      {
+        "rule_id": "down_001",
+        "evaluable": true,
+        "met": false
+      },
+      {
+        "rule_id": "down_002",
+        "evaluable": true,
+        "met": true
+      },
+      {
+        "rule_id": "down_003",
+        "evaluable": true,
+        "met": true
+      }
+    ],
+    "rules_applied": [
+      "down_002"
+    ],
+    "rules_suppressed": [
+      {
+        "rule_id": "down_003",
+        "by": "down_002"
+      }
+    ],
+    "limit_reached": [],
+    "config_before": {
+      "level": 1,
+      "distractors": 2,
+      "support_level": 1,
+      "max_instruction_words": 8,
+      "offer_instruction_repeat": false
+    },
+    "config_after": {
+      "level": 1,
+      "distractors": 2,
+      "support_level": 1,
+      "max_instruction_words": 8,
+      "offer_instruction_repeat": true
+    },
+    "applies_from": "next_trial",
+    "rule_applied": [
+      {
+        "rule_id": "down_002",
+        "condition_met": "recent_long_latency = 3 de 5 (umbral 8 s)",
+        "override": "offer_instruction_repeat",
+        "previous_value": false,
+        "new_value": true,
+        "timestamp": "2026-11-06T13:05:22Z"
+      }
+    ],
+    "explanation": "Se ofrece repetir la instrucción porque 3 de las últimas respuestas tardaron más de 8 s. Esto no se interpreta como distracción, cansancio ni falta de comprensión. No se sube la dificultad mientras las respuestas son lentas; primero se ofrece repetir la instrucción.",
+    "evidence_event_ids": [
+      "00000000-0000-4000-8000-000000000003",
+      "00000000-0000-4000-8000-000000000004",
+      "00000000-0000-4000-8000-000000000005"
+    ],
+    "model_state": {
+      "model_version": "0.2.0",
+      "rules_version": "1.0.0",
+      "params_version": "1.0.0",
+      "game_type": "recognize_choose",
+      "config": {
+        "level": 1,
+        "distractors": 2,
+        "support_level": 1,
+        "max_instruction_words": 8,
+        "offer_instruction_repeat": true
+      },
+      "indicators": {
+        "consecutive_errors": 0,
+        "trials_in_config": 5,
+        "recent_correct": {
+          "value": 4,
+          "n": 5
+        },
+        "recent_help": {
+          "value": 0,
+          "n": 5
+        },
+        "recent_long_latency": {
+          "value": 0,
+          "n": 2
+        }
+      },
+      "window": [
+        {
+          "event_id": "00000000-0000-4000-8000-000000000001",
+          "outcome": "correct",
+          "help_used": false,
+          "valid_latency_ms": 4100,
+          "latency_consumed": false
+        },
+        {
+          "event_id": "00000000-0000-4000-8000-000000000002",
+          "outcome": "incorrect",
+          "help_used": false,
+          "valid_latency_ms": 5200,
+          "latency_consumed": false
+        },
+        {
+          "event_id": "00000000-0000-4000-8000-000000000003",
+          "outcome": "correct",
+          "help_used": false,
+          "valid_latency_ms": 9300,
+          "latency_consumed": true
+        },
+        {
+          "event_id": "00000000-0000-4000-8000-000000000004",
+          "outcome": "correct",
+          "help_used": false,
+          "valid_latency_ms": 10100,
+          "latency_consumed": true
+        },
+        {
+          "event_id": "00000000-0000-4000-8000-000000000005",
+          "outcome": "correct",
+          "help_used": false,
+          "valid_latency_ms": 9800,
+          "latency_consumed": true
+        }
+      ],
+      "last_seq": 5,
+      "repeat_pending_trials": 1,
+      "no_response_count": 0,
+      "state_hash": "sha256:5e3c1a8b0b0f7d8b856ffb5ed136b54f2419009cc0e4106da64532d1c72f3b9f"
+    }
+  },
+  "metadata": {
+    "timestamp": "2026-11-12T22:37:06Z",
+    "processing_time_ms": 1,
+    "api_version": "v1.0",
+    "model_version": "0.2.0",
+    "rules_version": "1.0.0",
+    "params_version": "1.0.0"
+  },
+  "tracking": {
+    "request_id": "req_4f181715",
+    "student_id_hash": "sha256:3d2b4ce8da59fa47",
+    "session_id": "ses_8812"
+  }
+}

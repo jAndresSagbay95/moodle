@@ -1,0 +1,113 @@
+name: adaptia-dev
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: moodle
+      POSTGRES_USER: moodle
+      POSTGRES_PASSWORD: ${MOODLE_DB_PASSWORD:?Configura .env}
+    volumes:
+      - moodle_db:/var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U moodle -d moodle']
+      interval: 5s
+      timeout: 3s
+      retries: 30
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    environment:
+      PGHOST: postgres
+      PGDATABASE: adaptia
+      PGUSER: adaptia
+      PGPASSWORD: ${ADAPTIA_DB_PASSWORD:?Configura .env}
+      ADAPTIA_SERVICE_TOKEN: ${ADAPTIA_SERVICE_TOKEN:?Configura .env}
+      ADAPTIA_MODE: mock
+      ADAPTIA_MOCK_URL: http://mocks:5100
+      ADAPTIA_DOWN_URL: ${ADAPTIA_DOWN_URL:-http://down:5200/extensions/v1/down}
+      ADAPTIA_DOWN_TOKEN: ${ADAPTIA_DOWN_TOKEN:-}
+      ADAPTIA_TUTORIA_URL: ${ADAPTIA_TUTORIA_URL:-}
+      ADAPTIA_TUTORIA_TOKEN: ${ADAPTIA_TUTORIA_TOKEN:-}
+      ADAPTIA_TUTORIA_TIMEOUT: ${ADAPTIA_TUTORIA_TIMEOUT:-70}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mocks:
+        condition: service_healthy
+      down:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+    ports:
+      - '127.0.0.1:5000:5000'
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:5000/health', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  down:
+    image: adaptia-dev-backend:latest
+    environment:
+      ADAPTIA_SERVICE_TOKEN: ${ADAPTIA_SERVICE_TOKEN:?Configura .env}
+      ADAPTIA_DOWN_TOKEN: ${ADAPTIA_DOWN_TOKEN:-}
+    volumes:
+      - ./backend:/app
+      - ${MISION_DOWN_SOURCE:-../../andres-morocho/mision_down-dashboard}/backend/src:/mision-down/backend/src:ro
+      - ${MISION_DOWN_SOURCE:-../../andres-morocho/mision_down-dashboard}/docs/fase2:/mision-down/docs/fase2:ro
+    command: [gunicorn, --bind, '0.0.0.0:5200', --workers, '2', 'down_service:create_app()']
+    ports:
+      - '127.0.0.1:5200:5200'
+    healthcheck:
+      test: [CMD, python, -c, "import os,urllib.request; token=os.environ.get('ADAPTIA_DOWN_TOKEN') or os.environ['ADAPTIA_SERVICE_TOKEN']; urllib.request.urlopen(urllib.request.Request('http://localhost:5200/extensions/v1/down/health',headers={'Authorization':'Bearer '+token}),timeout=3)"]
+      interval: 5s
+      timeout: 4s
+      retries: 20
+    restart: unless-stopped
+
+  mocks:
+    image: adaptia-dev-backend:latest
+    environment:
+      ADAPTIA_SERVICE_TOKEN: ${ADAPTIA_SERVICE_TOKEN:?Configura .env}
+    volumes:
+      - ./backend:/app
+    command: [gunicorn, --bind, '0.0.0.0:5100', --workers, '2', 'mock_services:create_app()']
+    ports:
+      - '127.0.0.1:5100:5100'
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:5100/health', timeout=3)"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  moodle:
+    build: ./moodle
+    environment:
+      MOODLE_DB_PASSWORD: ${MOODLE_DB_PASSWORD}
+      MOODLE_WWWROOT: http://localhost:8086
+      ADAPTIA_SERVICE_TOKEN: ${ADAPTIA_SERVICE_TOKEN:?Configura .env}
+      ADAPTIA_ACTOR_SECRET: ${ADAPTIA_ACTOR_SECRET:?Configura .env}
+      PHP_INI-max_input_vars: '5000'
+      PHP_INI-memory_limit: 512M
+      PHP_INI-upload_max_filesize: 64M
+      PHP_INI-post_max_size: 64M
+    volumes:
+      - ..:/var/www/html
+      - ./moodle/config.php:/var/www/html/config.php:ro
+      - moodle_data:/var/www/moodledata
+    ports:
+      - '127.0.0.1:8086:80'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  moodle_db:
+  moodle_data:

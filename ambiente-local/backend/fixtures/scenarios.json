@@ -1,0 +1,306 @@
+{
+  "avance": {
+    "profile": {
+      "student_id": "stud_hash_abc123xyz",
+      "course_id": "mat_101",
+      "performance_score": 75,
+      "processing_speed": "normal",
+      "preferred_modality": "visual",
+      "attention_span_minutes": 45,
+      "known_concepts": [
+        "ecuaciones_lineales",
+        "polinomios"
+      ],
+      "gaps": [
+        "ecuaciones_cuadraticas"
+      ],
+      "experiment_group": "control",
+      "timestamp": "2026-10-30T10:30:00Z"
+    },
+    "motor_request": {
+      "student_id": "stud_hash_abc123xyz",
+      "interaction_history": [
+        {
+          "type": "exercise_completed",
+          "topic": "ecuaciones_lineales",
+          "score": 95,
+          "timestamp": "2026-10-30T10:15:00Z"
+        }
+      ],
+      "affective_signals": [
+        {
+          "emotion": "confident",
+          "confidence": 0.92,
+          "timestamp": "2026-10-30T10:20:00Z"
+        }
+      ]
+    },
+    "motor_response": {
+      "success": true,
+      "data": {
+        "decision": "aumentar_dificultad",
+        "reasoning": "Estudiante mostró comprensión (95%); expresión confiada; pasar a ejercicios más complejos",
+        "parameters": {
+          "new_difficulty": 7,
+          "next_topic": "ecuaciones_cuadraticas",
+          "learning_pathway": "acelerado"
+        }
+      },
+      "tracking": {
+        "request_id": "req_uuid_12345",
+        "student_id_hash": "stud_hash_abc123xyz"
+      }
+    },
+    "source": "FASE-1-BASE/HITO-A-COMPLETO.md I1-I3; patricio-lucero/REUNION-PATRICIO-FASE1-KICKOFF.md sección 4",
+    "validation": "Casos de integración ficticios; no representan reglas científicas aprobadas.",
+    "id": "avance",
+    "title": "Avance · ecuaciones cuadráticas",
+    "topic": "ecuaciones_cuadraticas",
+    "objective": "Revisar y publicar un recurso educativo generado por servicios simulados.",
+    "workstream": "tutoria",
+    "tutor_response": {
+      "success": true,
+      "data": {
+        "content": "Una ecuación cuadrática tiene la forma ax² + bx + c = 0, con a distinto de cero.\n\nx² − 5x + 6 = 0. Buscamos dos números cuyo producto sea 6 y cuya suma sea −5: −2 y −3. Entonces (x − 2)(x − 3) = 0 y las soluciones son x = 2 y x = 3.\n\nResuelve x² − 7x + 12 = 0 por factorización. Comprueba tus soluciones sustituyéndolas en la ecuación.",
+        "structure": {
+          "title": "Ecuaciones cuadráticas: factorización",
+          "sections": [
+            {
+              "type": "explanation",
+              "title": "Reconocer la ecuación",
+              "text": "Una ecuación cuadrática tiene la forma ax² + bx + c = 0, con a distinto de cero."
+            },
+            {
+              "type": "example",
+              "title": "Ejemplo resuelto",
+              "text": "x² − 5x + 6 = 0. Buscamos dos números cuyo producto sea 6 y cuya suma sea −5: −2 y −3. Entonces (x − 2)(x − 3) = 0 y las soluciones son x = 2 y x = 3."
+            },
+            {
+              "type": "exercise",
+              "title": "Ahora tú",
+              "text": "Resuelve x² − 7x + 12 = 0 por factorización. Comprueba tus soluciones sustituyéndolas en la ecuación."
+            }
+          ]
+        },
+        "metadata_generation": {
+          "model_used": "mock-fixture-v1",
+          "tokens_used": 0,
+          "generation_time_ms": 0
+        }
+      },
+      "metadata": {
+        "api_version": "v1.0",
+        "mode": "mock",
+        "processing_time_ms": 0,
+        "cost_usd": "0.000000"
+      },
+      "tracking": {
+        "request_id": "fixture",
+        "student_id_hash": "stud_hash_abc123xyz",
+        "session_id": "session_fixture"
+      }
+    },
+    "use_down": false
+  },
+  "refuerzo": {
+    "profile": {
+      "student_id": "stud_hash_abc123xyz",
+      "course_id": "mat_101",
+      "performance_score": 35,
+      "processing_speed": "normal",
+      "preferred_modality": "visual",
+      "attention_span_minutes": 45,
+      "known_concepts": [
+        "ecuaciones_lineales",
+        "polinomios"
+      ],
+      "gaps": [
+        "ecuaciones_cuadraticas"
+      ],
+      "experiment_group": "control",
+      "timestamp": "2026-10-30T10:30:00Z"
+    },
+    "motor_request": {
+      "student_id": "stud_hash_abc123xyz",
+      "interaction_history": [
+        {
+          "type": "exercise_completed",
+          "topic": "ecuaciones_lineales",
+          "score": 35,
+          "timestamp": "2026-10-30T10:15:00Z"
+        }
+      ],
+      "affective_signals": []
+    },
+    "motor_response": {
+      "success": true,
+      "data": {
+        "decision": "solicitar_ayuda",
+        "reasoning": "Respuesta mock basada en el ejemplo de refuerzo del documento: ofrecer apoyo y reducir un nivel. No es una regla validada.",
+        "parameters": {
+          "new_difficulty": 4,
+          "next_topic": "ecuaciones_cuadraticas",
+          "learning_pathway": "refuerzo"
+        }
+      },
+      "tracking": {
+        "request_id": "req_uuid_12345",
+        "student_id_hash": "stud_hash_abc123xyz"
+      }
+    },
+    "source": "FASE-1-BASE/HITO-A-COMPLETO.md I1-I3; patricio-lucero/REUNION-PATRICIO-FASE1-KICKOFF.md sección 4",
+    "validation": "Casos de integración ficticios; no representan reglas científicas aprobadas.",
+    "id": "refuerzo",
+    "title": "Refuerzo · ecuaciones cuadráticas",
+    "topic": "ecuaciones_cuadraticas",
+    "objective": "Revisar y publicar un recurso educativo generado por servicios simulados.",
+    "workstream": "tutoria",
+    "tutor_response": {
+      "success": true,
+      "data": {
+        "content": "En x² − 5x + 6 = 0 queremos encontrar valores de x que conviertan el lado izquierdo en cero.\n\nProbemos x = 2: 2² − 5·2 + 6 = 4 − 10 + 6 = 0. Por tanto, x = 2 es una solución.\n\nPrueba ahora x = 3 en la misma ecuación. Calcula primero el cuadrado, luego la multiplicación y finalmente la suma.",
+        "structure": {
+          "title": "Ecuaciones cuadráticas: repaso guiado",
+          "sections": [
+            {
+              "type": "explanation",
+              "title": "Un paso a la vez",
+              "text": "En x² − 5x + 6 = 0 queremos encontrar valores de x que conviertan el lado izquierdo en cero."
+            },
+            {
+              "type": "example",
+              "title": "Comprobar una solución",
+              "text": "Probemos x = 2: 2² − 5·2 + 6 = 4 − 10 + 6 = 0. Por tanto, x = 2 es una solución."
+            },
+            {
+              "type": "exercise",
+              "title": "Tu turno",
+              "text": "Prueba ahora x = 3 en la misma ecuación. Calcula primero el cuadrado, luego la multiplicación y finalmente la suma."
+            }
+          ]
+        },
+        "metadata_generation": {
+          "model_used": "mock-fixture-v1",
+          "tokens_used": 0,
+          "generation_time_ms": 0
+        }
+      },
+      "metadata": {
+        "api_version": "v1.0",
+        "mode": "mock",
+        "processing_time_ms": 0,
+        "cost_usd": "0.000000"
+      },
+      "tracking": {
+        "request_id": "fixture",
+        "student_id_hash": "stud_hash_abc123xyz",
+        "session_id": "session_fixture"
+      }
+    },
+    "use_down": false
+  },
+  "apoyo_down": {
+    "profile": {
+      "student_id": "stud_abc123xyz",
+      "course_id": "mat_101",
+      "performance_score": 75,
+      "processing_speed": "normal",
+      "preferred_modality": "visual",
+      "attention_span_minutes": 45,
+      "known_concepts": [
+        "ecuaciones_lineales",
+        "polinomios"
+      ],
+      "gaps": [
+        "ecuaciones_cuadraticas"
+      ],
+      "experiment_group": "control",
+      "timestamp": "2026-10-30T10:30:00Z"
+    },
+    "motor_request": {
+      "student_id": "stud_abc123xyz",
+      "interaction_history": [
+        {
+          "type": "exercise_completed",
+          "topic": "ecuaciones_lineales",
+          "score": 95,
+          "timestamp": "2026-10-30T10:15:00Z"
+        }
+      ],
+      "affective_signals": [
+        {
+          "emotion": "confident",
+          "confidence": 0.92,
+          "timestamp": "2026-10-30T10:20:00Z"
+        }
+      ]
+    },
+    "motor_response": {
+      "success": true,
+      "data": {
+        "decision": "mantener_dificultad",
+        "reasoning": "Caso de integración: consultar la extensión para ofrecer apoyo antes de modificar la dificultad.",
+        "parameters": {
+          "new_difficulty": 1,
+          "next_topic": "reconocimiento_objetos",
+          "learning_pathway": "apoyo"
+        }
+      },
+      "tracking": {
+        "request_id": "req_uuid_12345",
+        "student_id_hash": "stud_hash_abc123xyz"
+      }
+    },
+    "source": "FASE-1-BASE/HITO-A-COMPLETO.md I1-I3; patricio-lucero/REUNION-PATRICIO-FASE1-KICKOFF.md sección 4; Misión Down backend/tests/test_evaluate_api.py test_ejemplo_de_la_especificacion y OpenAPI extensión 1.0.0",
+    "validation": "Casos de integración ficticios; no representan reglas científicas aprobadas.",
+    "id": "apoyo_down",
+    "title": "Misión Down · repetición de instrucciones",
+    "topic": "reconocimiento_objetos",
+    "objective": "Revisar y publicar un recurso educativo generado por servicios simulados.",
+    "workstream": "mision_down",
+    "tutor_response": {
+      "success": true,
+      "data": {
+        "content": "Busca la pelota.\n\nEl caso de prueba solicita ofrecer de nuevo la misma instrucción. La latencia no se interpreta como un estado emocional ni como falta de comprensión.\n\nMuestra una pelota junto a dos objetos diferentes y solicita que se seleccione la pelota. Esta página demuestra la entrega del recurso; no ejecuta el microjuego de Misión Down.",
+        "structure": {
+          "title": "Reconocimiento de objetos: instrucción con apoyo",
+          "sections": [
+            {
+              "type": "explanation",
+              "title": "Instrucción breve",
+              "text": "Busca la pelota."
+            },
+            {
+              "type": "example",
+              "title": "Repetir la instrucción",
+              "text": "El caso de prueba solicita ofrecer de nuevo la misma instrucción. La latencia no se interpreta como un estado emocional ni como falta de comprensión."
+            },
+            {
+              "type": "exercise",
+              "title": "Siguiente ensayo simulado",
+              "text": "Muestra una pelota junto a dos objetos diferentes y solicita que se seleccione la pelota. Esta página demuestra la entrega del recurso; no ejecuta el microjuego de Misión Down."
+            }
+          ]
+        },
+        "metadata_generation": {
+          "model_used": "mock-fixture-v1",
+          "tokens_used": 0,
+          "generation_time_ms": 0
+        }
+      },
+      "metadata": {
+        "api_version": "v1.0",
+        "mode": "mock",
+        "processing_time_ms": 0,
+        "cost_usd": "0.000000"
+      },
+      "tracking": {
+        "request_id": "fixture",
+        "student_id_hash": "stud_hash_abc123xyz",
+        "session_id": "session_fixture"
+      }
+    },
+    "use_down": true,
+    "down_request_file": "down-evaluate.request.json"
+  }
+}

@@ -1,0 +1,214 @@
+{
+  "success": true,
+  "data": {
+    "catalog_version": "1.0.0",
+    "status": "draft",
+    "window": {
+      "size": 5,
+      "reset_on_change_of": [
+        "level",
+        "distractors",
+        "support_level"
+      ],
+      "reset_on_new_session": true
+    },
+    "resolution": {
+      "evaluation_order": [
+        "down_001",
+        "down_002",
+        "down_003"
+      ],
+      "fallback": "down_004",
+      "can_apply_together": [
+        [
+          "down_001",
+          "down_002"
+        ]
+      ],
+      "suppresses": [
+        {
+          "rule_id": "down_002",
+          "suppresses": "down_003",
+          "reason": "No se sube la dificultad mientras las respuestas son lentas; primero se ofrece repetir la instrucción."
+        }
+      ],
+      "never_together": [
+        [
+          "down_001",
+          "down_003"
+        ]
+      ]
+    },
+    "rules": [
+      {
+        "rule_id": "down_001",
+        "name": "Aumento de apoyo",
+        "priority": 1,
+        "evidence_required": {
+          "indicator": "trials_in_config",
+          "min": 3
+        },
+        "condition": "IF consecutive_errors >= 3",
+        "condition_expr": {
+          "indicator": "consecutive_errors",
+          "op": ">=",
+          "value": 3
+        },
+        "actions": [
+          {
+            "override": "support_level",
+            "mode": "delta",
+            "value": 1,
+            "reason": "Dar más apoyo cuando falla varias veces seguidas"
+          },
+          {
+            "override": "distractors",
+            "mode": "delta",
+            "value": -1,
+            "reason": "Dejar menos opciones en pantalla"
+          }
+        ],
+        "application": "apply_what_fits",
+        "after": {
+          "reset_window": true
+        },
+        "applies_to": [
+          "recognize_choose",
+          "relate_associate",
+          "order_sequence"
+        ],
+        "explanation_template": "Se {acciones} porque hubo {consecutive_errors} ensayos seguidos sin acierto al primer intento.",
+        "validated_with": "pendiente",
+        "confidence": null,
+        "version": "1.0.0"
+      },
+      {
+        "rule_id": "down_002",
+        "name": "Repetición de instrucciones",
+        "priority": 2,
+        "evidence_required": {
+          "indicator": "recent_long_latency.n",
+          "min": 3
+        },
+        "condition": "IF recent_long_latency >= 3 (latencias válidas sobre latency_threshold_ms del juego)",
+        "condition_expr": {
+          "indicator": "recent_long_latency.value",
+          "op": ">=",
+          "value": 3,
+          "threshold_param": "latency_threshold_ms"
+        },
+        "actions": [
+          {
+            "override": "offer_instruction_repeat",
+            "mode": "set",
+            "value": true,
+            "duration_trials": 1,
+            "reason": "Ofrecer escuchar otra vez la instrucción"
+          }
+        ],
+        "application": "all",
+        "after": {
+          "consume_latencies": true
+        },
+        "applies_to": [
+          "recognize_choose",
+          "relate_associate",
+          "order_sequence"
+        ],
+        "explanation_template": "Se ofrece repetir la instrucción porque {recent_long_latency} de las últimas respuestas tardaron más de {umbral_s} s. Esto no se interpreta como distracción, cansancio ni falta de comprensión.",
+        "validated_with": "pendiente",
+        "confidence": null,
+        "version": "1.0.0"
+      },
+      {
+        "rule_id": "down_003",
+        "name": "Progresión de dificultad",
+        "priority": 3,
+        "evidence_required": {
+          "indicator": "recent_correct.n",
+          "min": 5
+        },
+        "condition": "IF recent_correct >= 4 de 5 AND recent_help <= 1",
+        "condition_expr": {
+          "all": [
+            {
+              "indicator": "recent_correct.value",
+              "op": ">=",
+              "value": 4
+            },
+            {
+              "indicator": "recent_help.value",
+              "op": "<=",
+              "value": 1
+            }
+          ]
+        },
+        "actions": [
+          {
+            "override": "distractors",
+            "mode": "delta",
+            "value": 1,
+            "reason": "Agregar una opción más"
+          },
+          {
+            "override": "level",
+            "mode": "delta",
+            "value": 1,
+            "reason": "Si ya está en el máximo de distractores, subir de nivel"
+          }
+        ],
+        "application": "first_that_fits",
+        "after": {
+          "reset_window": true,
+          "level_up_keeps_distractors": true
+        },
+        "applies_to": [
+          "recognize_choose",
+          "relate_associate",
+          "order_sequence"
+        ],
+        "explanation_template": "Se {accion} porque hubo {recent_correct} aciertos al primer intento en los últimos 5 ensayos, con {recent_help} ayuda(s).",
+        "validated_with": "pendiente",
+        "confidence": null,
+        "version": "1.0.0"
+      },
+      {
+        "rule_id": "down_004",
+        "name": "Evidencia insuficiente / sin cambio",
+        "priority": 4,
+        "evidence_required": null,
+        "condition": "IF ninguna otra regla aplicó",
+        "condition_expr": {
+          "none_applied": true
+        },
+        "actions": [],
+        "application": "none",
+        "keep_reasons": [
+          "insufficient_evidence",
+          "no_condition_met",
+          "limit_reached"
+        ],
+        "applies_to": [
+          "recognize_choose",
+          "relate_associate",
+          "order_sequence"
+        ],
+        "explanation_template": "Se mantiene la configuración: {motivo}.",
+        "validated_with": "pendiente",
+        "confidence": null,
+        "version": "1.0.0"
+      }
+    ]
+  },
+  "metadata": {
+    "timestamp": "2026-11-12T22:37:06Z",
+    "processing_time_ms": 0,
+    "api_version": "v1.0",
+    "model_version": "0.2.0",
+    "rules_version": "1.0.0",
+    "params_version": "1.0.0"
+  },
+  "tracking": {
+    "request_id": "req_68428b94"
+  }
+}

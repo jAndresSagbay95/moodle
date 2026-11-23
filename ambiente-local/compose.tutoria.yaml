@@ -1,0 +1,13 @@
+# Activar junto con compose.yaml para conectar dos instalaciones locales existentes.
+services:
+  backend:
+    networks:
+      default:
+      tutoria_link:
+        aliases:
+          - adaptia-gateway
+
+networks:
+  tutoria_link:
+    external: true
+    name: adaptia-tutoria

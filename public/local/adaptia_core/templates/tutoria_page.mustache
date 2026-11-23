@@ -1,0 +1,50 @@
+{{!
+    @template local_adaptia_core/tutoria_page
+
+    Native course workspace. All user and provider text is automatically escaped.
+
+    Example context (json):
+    {"hasdetail": false, "hasrequests": false, "requests": [], "newurl": "/local/adaptia_core/tutoria.php?courseid=2"}
+}}
+{{#hasdetail}}
+    <section aria-labelledby="tutoria-request-heading">
+        <h3 id="tutoria-request-heading">{{topic}}</h3>
+        <p><strong>{{#str}} tutoriarequeststate, local_adaptia_core {{/str}}</strong> {{status}}</p>
+        <p>{{context}}</p>
+        <p>{{#str}} tutoriadifficulty, local_adaptia_core {{/str}}: {{difficulty}}</p>
+        {{#failed}}
+            <div class="alert alert-warning" role="alert">{{errormessage}}</div>
+        {{/failed}}
+        {{#pending}}
+            <div class="alert alert-info" role="status">{{#str}} tutoriapending, local_adaptia_core {{/str}}</div>
+        {{/pending}}
+        {{#succeeded}}
+            <div class="alert alert-info">{{#str}} tutoriareviewnotice, local_adaptia_core {{/str}}</div>
+            <h4>{{title}}</h4>
+            {{#sections}}
+                <h5>{{title}}</h5>
+                {{#paragraphs}}<p>{{text}}</p>{{/paragraphs}}
+            {{/sections}}
+            <p>{{#str}} tutoriamodel, local_adaptia_core {{/str}}: {{model}} ·
+                {{#str}} tutoriatokens, local_adaptia_core {{/str}}: {{tokens}}</p>
+        {{/succeeded}}
+        <p>{{#str}} requestid, local_adaptia_core {{/str}}: <code class="text-break">{{requestid}}</code></p>
+        <p><a class="btn btn-secondary" href="{{newurl}}">{{#str}} tutorianew, local_adaptia_core {{/str}}</a></p>
+    </section>
+{{/hasdetail}}
+{{#hasrequests}}
+    <h3>{{#str}} tutoriahistory, local_adaptia_core {{/str}}</h3>
+    <div class="table-responsive">
+        <table class="table">
+            <thead><tr>
+                <th scope="col">{{#str}} topic, local_adaptia_core {{/str}}</th>
+                <th scope="col">{{#str}} requeststatus, local_adaptia_core {{/str}}</th>
+                <th scope="col">{{#str}} created, local_adaptia_core {{/str}}</th>
+            </tr></thead>
+            <tbody>{{#requests}}<tr>
+                <td><a href="{{url}}">{{topic}}</a></td><td>{{status}}</td><td>{{created}}</td>
+            </tr>{{/requests}}</tbody>
+        </table>
+    </div>
+{{/hasrequests}}
+{{^hasrequests}}<p>{{#str}} tutorianoitems, local_adaptia_core {{/str}}</p>{{/hasrequests}}
