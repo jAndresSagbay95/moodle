@@ -83,8 +83,13 @@ No se interpreta el fallo técnico como una respuesta incorrecta del estudiante.
 | Pasarela y motor | Credenciales entre servicios | Transporte privado, sin usar el rol autoelegido en Flutter. |
 
 Flutter y el dashboard identifican el mismo proyecto Firebase `misiondown-44234`.
-El dashboard consulta usuarios, sesiones y reglas, pero no tiene una pantalla de
-concesión/revocación de roles: existe el script privilegiado `asignar_rol.py`.
+La rama del proveedor `feat/roles-dashboard` añade alta y retirada auditadas de
+acceso profesional desde el dashboard; protege administradores y comprueba el
+permiso vigente en cada nueva petición. La asignación de administradores sigue en
+el script privilegiado `asignar_rol.py`. Contrato, incidencias y límites en la
+[guía del proveedor](https://github.com/KAndresMR/mision_down/blob/feat/roles-dashboard/backend/README.md#gestión-auditada-de-acceso-profesional).
+La publicación de la rama no despliega esa funcionalidad. El perfil de Flutter
+sigue siendo único: no se ha añadido un selector de perfiles al iniciar sesión.
 La identidad Moodle no se vincula automáticamente con Firebase; tampoco se ha
 implementado una autorización profesional-niño compartida entre los sistemas.
 
